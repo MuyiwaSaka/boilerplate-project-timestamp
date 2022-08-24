@@ -12,7 +12,7 @@ app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 20
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
-app.use(express.static('.vercel/output/static'));
+//app.use(express.static('.vercel/output/static'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
@@ -28,7 +28,7 @@ app.get("/api/:timestamp", (req,res)=>{
   }else if(timeval.toString()!=="Invalid Date"){
     res.send({unix:timeval.getTime(),utc:timeval.toUTCString()});
   }else{
-    res.send("Invalid Date String Supplied");
+    res.send({ error : "Invalid Date" });
   }
 
 });
