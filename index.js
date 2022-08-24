@@ -18,6 +18,20 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/api/:timestamp", (req,res)=>{
+  let timeval = new Date(req.params.timestamp);
+  if(isFinite(req.params.timestamp)){
+    var timevar = new Date();
+    timevar.setTime(req.params.timestamp);
+    res.send({unix:timevar.getTime(),utc:timevar.toUTCString()});
+  }else if(timeval.toString()!=="Invalid Date"){
+    res.send({unix:timeval.getTime(),utc:timeval.toUTCString()});
+  }else{
+    res.send("Invalid Date String Supplied");
+  }
+
+});
+
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
