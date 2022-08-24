@@ -12,6 +12,7 @@ app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 20
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
+app.use(express.static('.vercel/output/static'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
