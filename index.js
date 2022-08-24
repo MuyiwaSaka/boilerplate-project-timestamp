@@ -19,6 +19,10 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
+app.get("/api", function (req, res) {
+  res.send('Not Yet Implemented');
+});
+
 app.get("/api/:timestamp", (req,res)=>{
   let timeval = new Date(req.params.timestamp);
   if(isFinite(req.params.timestamp)){
