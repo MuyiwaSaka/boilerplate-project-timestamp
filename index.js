@@ -8,7 +8,7 @@ var app = express();
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
-app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
+app.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -23,16 +23,19 @@ app.get("/api", function (req, res) {
   res.send('Not Yet Implemented');
 });
 
-app.get("/api/:timestamp", (req,res)=>{
+app.get("/api/:timestamp", (req, res) => {
   let timeval = new Date(req.params.timestamp);
-  if(isFinite(req.params.timestamp)){
+  if (isFinite(req.params.timestamp)) {
     var timevar = new Date();
     timevar.setTime(req.params.timestamp);
-    res.send({unix:timevar.getTime(),utc:timevar.toUTCString()});
-  }else if(timeval.toString()!=="Invalid Date"){
-    res.send({unix:timeval.getTime(),utc:timeval.toUTCString()});
+    res.send({ unix: timevar.getTime(), utc: timevar.toUTCString() });
+  } else if (timeval.toString() !== "Invalid Date") {
+    res.send({ unix: timeval.getTime(), utc: timeval.toUTCString() });
+  } else if(!req.params){
+    var timevar= new Date();
+    res.send({unix:timevar.getTime(), utc: timevar.toUTCString()});
   }else{
-    res.send({ error : "Invalid Date" });
+    res.send({ error: "Invalid Date" });
   }
 
 });
@@ -40,7 +43,7 @@ app.get("/api/:timestamp", (req,res)=>{
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+  res.json({ greeting: 'hello API' });
 });
 
 
@@ -51,4 +54,4 @@ var listener = app.listen(process.env.PORT, function () {
 });
 
 
-module.exports=app;
+module.exports = app;
