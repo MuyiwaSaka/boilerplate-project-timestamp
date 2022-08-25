@@ -20,6 +20,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api", function (req, res) {
+  var timevar= new Date();
   res.send({unix:timevar.getTime(), utc: timevar.toUTCString()});
 });
 
