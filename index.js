@@ -20,7 +20,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api", function (req, res) {
-  res.send('Not Yet Implemented');
+  res.send({unix:timevar.getTime(), utc: timevar.toUTCString()});
 });
 
 app.get("/api/:timestamp", (req, res) => {
