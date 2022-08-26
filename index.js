@@ -10,6 +10,8 @@ var app = express();
 var cors = require('cors');
 app.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 204
 
+var useragent = require('express-useragent');
+app.use(useragent.express());// what did i just do?
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 //app.use(express.static('.vercel/output/static'));
@@ -41,6 +43,14 @@ app.get("/api/:timestamp", (req, res) => {
 
 });
 
+app.get('/api/whoami' , (req , res)=>{
+
+   res.send({
+    ipaddress:req.socket.remoteAddress, 
+    language: req.get("Accept-Language"),
+    software:req.useragent.source});
+
+})
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
