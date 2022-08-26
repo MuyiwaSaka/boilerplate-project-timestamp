@@ -43,7 +43,7 @@ app.get("/api/:timestamp", (req, res) => {
 
 });
 
-app.get('/api/whoami' , (req , res)=>{
+app.get('/p2/api/whoami' , (req , res)=>{
 
    res.send({
     ipaddress:req.socket.remoteAddress, 
