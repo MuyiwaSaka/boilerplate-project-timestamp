@@ -5,6 +5,12 @@
 var express = require('express');
 var app = express();
 
+const bodyParser = require('body-parser');
+
+//Set up middleware for POST FORM Submissions.
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
@@ -43,6 +49,7 @@ app.get("/api/:timestamp", (req, res) => {
 
 });
 
+
 app.get('/p2/api/whoami' , (req , res)=>{
 
    res.send({
@@ -50,14 +57,21 @@ app.get('/p2/api/whoami' , (req , res)=>{
     language: req.get("Accept-Language"),
     software:req.useragent.source});
 
-})
+});
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
+//URL Shortener Microservice.
+app.get('/p3/' , (req , res)=>{
+  res.sendFile(__dirname + '/views/p2.html');
+})
 
+app.post('/p3/api/shorturl' , (req , res)=>{
+  res.send(`This is the URL: ${req.body.url}`);
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
