@@ -1,18 +1,10 @@
 require('secrets').config();
 //Connect to Mongo DB.
 const mongoose = require('mongoose');
-    mongoose.connect(
-        process.env.MONGO_URI, 
-        {UseNewPUrlarsenr:true, useUnifiedTopology:true}
-);
+mongoose.connect( process.env.MONGO_URI, {UseNewPUrlarsenr:true, useUnifiedTopology:true});
 
 //create a schema for URLs 
-let linkSchema = new mongoose.Schema({
-    longurl:{
-        type:String,
-        required:true
-    }
-});
+let linkSchema = new mongoose.Schema({  longurl:{  type:String,  required:true } });
 
 //Create a model for URL SItes
 let LinkModel = mongoose.model('SiteUrl',linkSchema);
@@ -21,16 +13,35 @@ let LinkModel = mongoose.model('SiteUrl',linkSchema);
 const createAndSaveURL = (url, done) => {
     var newSiteURL = new LinkModel({longurl : url}); //no checking if it is a string???
     newSiteURL.save((err,data)=>{
-        if(err){    done(err);    }else{   done(null,data);        }
+        if(err){    
+            done(err);    
+        }else{   
+            done(null,data);        
+        }
     });
 };
 
 const findPageByLink = (siteLink, done) => {
     LinkModel.find({longurl:siteLink},(err,docs)=>{
-      if(err){    done(err);  }else{      done(null,docs);      }
+      if(err){    
+        done(err);  
+        }else{      
+            done(null,docs);      
+        }
+    });   
+};
+
+const findURLById = (urlId, done) => {
+    LinkModel.findById(urlId,(err,docs)=>{
+      if(err){
+        done(err);
+      }else{
+        done(null,docs);
+      }
     });
-  };
+};
 
 exports.LinkModel = LinkModel;
+exports.findURLById= findURLById;
 exports.createAndSaveURL = createAndSaveURL;
 exports.findPageByLink = findPageByLink;

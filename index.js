@@ -71,7 +71,15 @@ app.get('/p3/' , (req , res)=>{
 
 app.post('/p3/api/shorturl' , (req , res)=>{
   res.send(`This is the URL: ${req.body.url}`);
+  let url=req.body.url;
+  const find_service = require('./myApp.js').findPageByLink;
+  if(req.body.url){
+    var urlchk = find_service(url);
+    res.send(urlchck);
+  }
+  
 })
+
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
