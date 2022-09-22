@@ -19,8 +19,11 @@ app.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 
 var useragent = require('express-useragent');
 app.use(useragent.express());// what did i just do?
 // http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+//app.use(express.static('public'));
+app.use('/static', express.static(path.join(__dirname + '/public')));
 app.use(express.static('.vercel/output/static'));
+
+
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
