@@ -19,11 +19,8 @@ app.use(cors({ optionsSuccessStatus: 200 }));  // some legacy browsers choke on 
 var useragent = require('express-useragent');
 app.use(useragent.express());// what did i just do?
 // http://expressjs.com/en/starter/static-files.html
-//app.use(express.static('public'));
-app.use('/static', express.static(path.join(__dirname + '/public')));
-app.use(express.static('.vercel/output/static'));
-
-
+app.use(express.static('public'));
+//app.use(express.static('.vercel/output/static'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
@@ -74,15 +71,7 @@ app.get('/p3/' , (req , res)=>{
 
 app.post('/p3/api/shorturl' , (req , res)=>{
   res.send(`This is the URL: ${req.body.url}`);
-  let url=req.body.url;
-  const find_service = require('./myApp.js').findPageByLink;
-  if(req.body.url){
-    var urlchk = find_service(url);
-    res.send(urlchck);
-  }
-  
 })
-
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
