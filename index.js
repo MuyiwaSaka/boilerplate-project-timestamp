@@ -20,7 +20,7 @@ var useragent = require('express-useragent');
 app.use(useragent.express());// what did i just do?
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
-//app.use(express.static('.vercel/output/static'));
+app.use(express.static('.vercel/output/static'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get("/", function (req, res) {
